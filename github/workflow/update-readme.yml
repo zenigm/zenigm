@@ -1,0 +1,60 @@
+name: Update Competitive Programming Stats
+
+on:
+  schedule:
+    # Runs at 00:00 UTC daily
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install axios cheerio
+
+      - name: Fetch all platform stats
+        id: fetch_stats
+        run: node .github/scripts/fetch-stats.js
+        env:
+          LEETCODE_USERNAME: ${{ secrets.LEETCODE_USERNAME }}
+          CODEFORCES_USERNAME: ${{ secrets.CODEFORCES_USERNAME }}
+          CODECHEF_USERNAME: ${{ secrets.CODECHEF_USERNAME }}
+          ATCODER_USERNAME: ${{ secrets.ATCODER_USERNAME }}
+
+      - name: Update README with stats
+        run: node .github/scripts/update-readme.js
+        env:
+          STATS_JSON: ${{ steps.fetch_stats.outputs.stats }}
+
+      - name: Verify README update
+        run: |
+          echo "=== Updated Competitive Programming Stats ==="
+          grep -A 15 "START_SECTION:COMPETITIVE_STATS" README.md || echo "Section not found"
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "bot@github.com"
+          git config --local user.name "CP-Stats-Bot"
+
+          if git diff --quiet README.md; then
+            echo "✅ No changes to commit"
+            exit 0
+          fi
+
+          git add README.md
+          git commit -m "📊 Update competitive programming stats" \
+            -m "LeetCode • Codeforces • CodeChef • AtCoder\nUpdated: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "✅ Successfully pushed updates"
