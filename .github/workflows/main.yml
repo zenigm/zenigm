@@ -1,0 +1,23 @@
+name: Metrics
+on:
+  schedule: [{cron: "0 */6 * * *"}]  # Hourly
+  workflow_dispatch:  # Manual trigger
+  push: {branches: ["main", "master"]}
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Metrics
+        uses: lowlighter/metrics@v3.34  # Stable, not latest/beta
+        with:
+          filename: metrics.svg
+          template: classic
+          base: header, activity, community, metadata
+          config_timezone: Asia/Kolkata
+          config_display: large  # Fits gamified layout
+        env:
+          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+      # Add more jobs later for detailed, trophy, etc.
