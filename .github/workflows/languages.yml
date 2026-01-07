@@ -17,25 +17,30 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN }}
           filename: languages.svg
           
-          # Keep repositories base to analyze code
-          base: repositories
+          # Use base without repositories to avoid "no push activity" issue
+          base: ""
           
-          # Languages plugin
+          # Force language analysis from ALL repositories
           plugin_languages: yes
           plugin_languages_indepth: yes
-          plugin_languages_analysis_timeout: 30
-          plugin_languages_categories: programming
-          plugin_languages_colors: github
-          plugin_languages_details: bytes-size, percentage, lines
-          plugin_languages_limit: 8
-          plugin_languages_sections: most-used
+          plugin_languages_details: bytes-size, percentage
+          plugin_languages_limit: 10
           plugin_languages_threshold: 0%
+          plugin_languages_sections: most-used
           
-          # Analyze ALL your repos, not just recent
-          plugin_languages_recent_load: 1000
-          plugin_languages_recent_days: 365
-          
-          # Configuration
-          config_timezone: Asia/Kolkata
-          repositories: 100
+          # CRITICAL: Force analysis from specific repositories
+          repositories: 500
           repositories_forks: yes
+          repositories_affiliations: owner, collaborator, organization_member
+          
+          # Extended analysis parameters
+          plugin_languages_analysis_timeout: 60
+          plugin_languages_categories: programming, markup, prose
+          plugin_languages_colors: github
+          plugin_languages_recent_load: 5000
+          plugin_languages_recent_days: 3650
+          
+          # Don't skip any repositories
+          plugin_languages_skipped: ""
+          
+          config_timezone: Asia/Kolkata
