@@ -1,32 +1,13 @@
-name: GitHub Stats
+name: Languages
 on:
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
   push: {branches: ["master", "main"]}
 
 jobs:
-  # Achievements workflow
-  achievements:
+  github-metrics:
     runs-on: ubuntu-latest
-    environment: 
-      name: production
-    permissions:
-      contents: write
-    steps:
-      - uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          filename: achievements.svg
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year
-          config_timezone: Asia/Kolkata
-  
-  # Languages workflow
-  languages:
-    runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: production
     permissions:
       contents: write
@@ -35,11 +16,26 @@ jobs:
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           filename: languages.svg
-          base: ""
+          
+          # Keep repositories base to analyze code
+          base: repositories
+          
+          # Languages plugin
           plugin_languages: yes
-          plugin_languages_details: bytes-size, percentage
-          plugin_languages_sections: most-used
-          plugin_languages_limit: 8
           plugin_languages_indepth: yes
-          plugin_languages_analysis_timeout: 15
+          plugin_languages_analysis_timeout: 30
+          plugin_languages_categories: programming
+          plugin_languages_colors: github
+          plugin_languages_details: bytes-size, percentage, lines
+          plugin_languages_limit: 8
+          plugin_languages_sections: most-used
+          plugin_languages_threshold: 0%
+          
+          # Analyze ALL your repos, not just recent
+          plugin_languages_recent_load: 1000
+          plugin_languages_recent_days: 365
+          
+          # Configuration
           config_timezone: Asia/Kolkata
+          repositories: 100
+          repositories_forks: yes
