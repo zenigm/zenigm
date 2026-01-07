@@ -20,7 +20,7 @@ jobs:
           
           # 16Personalities plugin
           plugin_16personalities: yes
-          plugin_16personalities_url: https://www.16personalities.com/intp-personality
+          plugin_16personalities_url: https://www.16personalities.com/profiles/ac2e7dfe57aac
           plugin_16personalities_sections: personality, traits
           plugin_16personalities_scores: yes
           
