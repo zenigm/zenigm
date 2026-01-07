@@ -13,6 +13,6 @@ jobs:
           base: header, activity, community, metadata
           config_timezone: Asia/Kolkata
         env:
-          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
-          METRICS_USER: zenigm
+          TOKEN: ${{ secrets.METRICS_TOKEN }}
+          USER: zenigm
       # Add more jobs for detailed.svg, isocalendar.svg, trophy integration
