@@ -1,6 +1,6 @@
 name: Personality
 on:
-  schedule: [{cron: "0 0 1 * *"}]  # Update monthly (personality doesn't change often)
+  schedule: [{cron: "0 0 1 * *"}]
   workflow_dispatch:
   push: {branches: ["master", "main"]}
 
@@ -18,10 +18,10 @@ jobs:
           filename: personality.svg
           base: ""
           
-          # 16Personalities plugin
           plugin_16personalities: yes
           plugin_16personalities_url: https://www.16personalities.com/profiles/ac2e7dfe57aac
           plugin_16personalities_sections: personality, traits
           plugin_16personalities_scores: yes
           
           config_timezone: Asia/Kolkata
+
