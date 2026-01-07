@@ -20,7 +20,7 @@ jobs:
           
           # Chess plugin (Chess.com)
           plugin_chess: yes
-          plugin_chess_user: seehiki
+          plugin_chess_user: izenigm
           plugin_chess_platform: chess.com
           plugin_chess_animation: true
           
