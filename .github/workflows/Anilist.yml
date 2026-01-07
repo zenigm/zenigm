@@ -20,7 +20,7 @@ jobs:
           
           # AniList plugin
           plugin_anilist: yes
-          plugin_anilist_user: YOUR_ANILIST_USERNAME
+          plugin_anilist_user: zenigm
           plugin_anilist_medias: anime, manga
           plugin_anilist_sections: favorites, watching
           plugin_anilist_limit: 2
