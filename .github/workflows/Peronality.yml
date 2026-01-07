@@ -1,0 +1,27 @@
+name: Personality
+on:
+  schedule: [{cron: "0 0 1 * *"}]  # Update monthly (personality doesn't change often)
+  workflow_dispatch:
+  push: {branches: ["master", "main"]}
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: personality.svg
+          base: ""
+          
+          # 16Personalities plugin
+          plugin_16personalities: yes
+          plugin_16personalities_url: https://www.16personalities.com/intp-personality
+          plugin_16personalities_sections: personality, traits
+          plugin_16personalities_scores: yes
+          
+          config_timezone: Asia/Kolkata
