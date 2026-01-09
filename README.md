@@ -2,8 +2,7 @@
 
 <!-- Elegant Centered Video -->
 <video width="800" height="450" controls preload="metadata" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-  <source src="https://raw.githubusercontent.com/zenigm/zenigm/main/270507_tiny.mp4" type="video/mp4">
-  Your browser does not support the video tag.
+  <source src="https://raw.githubusercontent.com/zenigm/zenigm/main/270507_tiny-ezgif.com-video-to-gif-converter.gif">
 </video>
 
 <!-- Slow Professional Typing Animation -->
